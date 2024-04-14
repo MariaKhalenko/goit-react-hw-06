@@ -1,13 +1,18 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaUserLarge, FaPhone } from "react-icons/fa6";
 import * as Yup from "yup";
-import { nanoid } from "nanoid";
-import { useId } from "react";
 import css from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-const ContactForm = ({ setContacts, contacts }) => {
-  const nameFieldId = useId();
-  const numberFieldId = useId();
+const ContactForm = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values, actions) => {
+    dispatch(addContact(values));
+    actions.resetForm();
+  };
+
   return (
     <Formik
       initialValues={{ name: "", number: "" }}
@@ -24,15 +29,7 @@ const ContactForm = ({ setContacts, contacts }) => {
           )
           .required("Enter number"),
       })}
-      onSubmit={(values, { resetForm }) => {
-        const newContact = {
-          id: nanoid(),
-          name: values.name,
-          number: values.number,
-        };
-        setContacts([...contacts, newContact]);
-        resetForm();
-      }}
+      onSubmit={handleSubmit}
     >
       <Form className={css.form}>
         <label className={css.inputTitle}>Name</label>
@@ -42,7 +39,7 @@ const ContactForm = ({ setContacts, contacts }) => {
             type="text"
             name="name"
             placeholder="Name"
-            id={nameFieldId}
+            id="name"
           />
           <FaUserLarge className={css.iconUser} size="15" />
         </div>
@@ -59,7 +56,7 @@ const ContactForm = ({ setContacts, contacts }) => {
             type="text"
             name="number"
             placeholder="xxx-xx-xx"
-            id={numberFieldId}
+            id="number"
           />
           <FaPhone className={css.iconPhone} size="15" />
         </div>
