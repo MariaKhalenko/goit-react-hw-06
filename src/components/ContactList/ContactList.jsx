@@ -5,12 +5,12 @@ import { selectNameFilter } from "../../redux/filtersSlice";
 import { selectContacts } from "../../redux/contactsSlice";
 
 const ContactList = () => {
-  const contactsData = useSelector(selectContacts);
+  const dataContacts = useSelector(selectContacts);
   const search = useSelector(selectNameFilter);
 
   let filterContacts = [];
-  if (contactsData !== undefined) {
-    filterContacts = contactsData.filter((contact) =>
+  if (dataContacts !== undefined) {
+    filterContacts = dataContacts.filter((contact) =>
       contact.name.toLowerCase().includes(search.trim().toLowerCase())
     );
 
