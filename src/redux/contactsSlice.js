@@ -15,8 +15,12 @@ const contactsSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, action) {
+        console.log("action.payload:", action.payload); // Выводим данные, переданные в редуктор
+        console.log("state.items:", state.items); //
         if (state.items) {
           state.items.push(action.payload);
+        } else {
+          console.error("state.items is not an array!"); // Выводим ошибку, если state.items не является массивом
         }
       },
       prepare(contact) {
