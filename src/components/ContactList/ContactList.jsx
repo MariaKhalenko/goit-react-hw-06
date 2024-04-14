@@ -7,6 +7,7 @@ import { selectContacts } from "../../redux/contactsSlice";
 const ContactList = () => {
   const contactsData = useSelector(selectContacts);
   const search = useSelector(selectNameFilter);
+  console.log("contactsData:", contactsData);
 
   let filterContacts = [];
   if (contactsData !== undefined) {
