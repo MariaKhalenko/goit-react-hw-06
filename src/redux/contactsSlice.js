@@ -1,25 +1,22 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import contactsData from "../components/Contact/contacts.json";
 
-const initialContacts = [
-  { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-  { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-  { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-  { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-];
+const initialContacts = {
+  items: contactsData,
+};
 
-//  початковий стан
 const initialState = {
-  items: initialContacts, // Список контактів
+  items: initialContacts,
 };
 
 const contactsSlice = createSlice({
   name: "contacts",
-  initialState, // Змінено структуру initialState
+  initialState,
   reducers: {
     addContact: {
       reducer(state, action) {
         if (state.items) {
-          state.items.push(action.payload); // Доступ до масиву контактів через state.items
+          state.items.push(action.payload);
         }
       },
       prepare(contact) {
@@ -39,11 +36,6 @@ const contactsSlice = createSlice({
   },
 });
 
-// Експортуємо редюсер та дії
 export const { addContact, deleteContact } = contactsSlice.actions;
-
-// Експортуємо редюсер
 export const contactsReducer = contactsSlice.reducer;
-
-// Створюємо селектор для отримання списку контактів
 export const selectContacts = (state) => state.contacts.items;

@@ -15,11 +15,17 @@ const ContactList = () => {
     );
 
     return (
-      <ul className={css.contactList}>
-        {filterContacts.map((contact) => (
-          <Contact key={contact.id} contact={contact} />
-        ))}
-      </ul>
+      <div>
+        {filterContacts.length === 0 ? (
+          <p className={css.text}>No contacts yet</p>
+        ) : (
+          <ul className={css.contactList}>
+            {filterContacts.map((contact) => (
+              <Contact key={contact.id} contact={contact} />
+            ))}
+          </ul>
+        )}
+      </div>
     );
   }
 };

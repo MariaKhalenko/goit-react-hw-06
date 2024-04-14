@@ -9,7 +9,6 @@ const Contact = ({ contact }) => {
   const handleDelete = () => {
     dispatch(deleteContact(contact.id));
   };
-  // const { id, name, number } = contact;
 
   return (
     <li className={css.contactCart}>
