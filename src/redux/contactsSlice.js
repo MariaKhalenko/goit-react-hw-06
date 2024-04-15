@@ -1,33 +1,19 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import contactsData from "../components/Contact/contacts.json";
 
-const initialContacts = {
-  items: contactsData,
-};
-
-const initialState = {
-  items: initialContacts,
-};
-
 const contactsSlice = createSlice({
   name: "contacts",
-  initialState,
+  initialState: { items: contactsData },
   reducers: {
     addContact: {
       reducer(state, action) {
-        console.log("action.payload:", action.payload); // Выводим данные, переданные в редуктор
-        console.log("state.items:", state.items); //
-        if (state.items) {
-          state.items.push(action.payload);
-        } else {
-          console.error("state.items is not an array!"); // Выводим ошибку, если state.items не является массивом
-        }
+        state.items.push(action.payload);
       },
-      prepare(contact) {
+      prepare(items) {
         return {
           payload: {
             id: nanoid(),
-            ...contact,
+            ...items,
           },
         };
       },
@@ -43,3 +29,4 @@ const contactsSlice = createSlice({
 export const { addContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
 export const selectContacts = (state) => state.contacts.items;
+export const selectNameFilter = (state) => state.filters.name;
